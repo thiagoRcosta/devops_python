@@ -21,7 +21,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9' # Ajuste a versão conforme necessário
+        python-version: '3.9'
 
     # Processo de build (gera o artefato)
     - name: Build application
