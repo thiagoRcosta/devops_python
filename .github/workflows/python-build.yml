@@ -27,7 +27,7 @@ jobs:
     - name: Build application
       run: |
         mkdir build
-        python src/app.py > build/
+        python src/app.py > build/output.txt
 
     # Publica o artefato gerado
     - name: Upload build artifact
