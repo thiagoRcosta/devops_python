@@ -21,13 +21,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.9'
+        python-version: '3.10'
 
     # Processo de build (gera o artefato)
     - name: Build application
       run: |
         mkdir build
-        python src/app.py > build/output.txt
+        python src/app.py
 
     # Publica o artefato gerado
     - name: Upload build artifact
