@@ -27,8 +27,15 @@ jobs:
     - name: Create artifact
       uses: actions/upload-artifact@v3
       with:
-        name: python-publish-app-artifact
-        path: ./
+        name: python-build-artifact
+        path: build/
+
+    # Publica o artefato gerado
+    - name: Upload build artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: python-build-artifact
+        path: build/
 
   deploy:
     runs-on: ubuntu-latest
@@ -41,8 +48,8 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: app.py
-          path: python-publish-app-artifact/src
+          name: python-publish-app-artifact
+          path: ./
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
