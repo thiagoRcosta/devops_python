@@ -23,19 +23,18 @@ jobs:
       with:
         python-version: '3.10'
 
+    # Instalar dependências (opcional, caso precise)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
     # Processo de build (gera o artefato)
     - name: Create artifact
       uses: actions/upload-artifact@v3
       with:
         name: python-publish-app-artifact
         path: ./
-
-    # Publica o artefato gerado
-    - name: Upload build artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: python-build-artifact
-        path: build/
 
   deploy:
     runs-on: ubuntu-latest
@@ -48,8 +47,8 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: app.py
-          path: ./python-build-artifact/src/
+          name: python-publish-app-artifact
+          path: ./
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -57,4 +56,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: ./
+          package: ./python-publish-app-artifact/src/
